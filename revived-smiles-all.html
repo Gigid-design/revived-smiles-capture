@@ -320,21 +320,28 @@
     .success-btns {
       display: flex; gap: 8px;
     }
-    .btn-retake {
+    .success-btns .btn-retake {
       flex: 1; padding: 10px;
       background: #2a2a2c; border: none; border-radius: 10px;
       color: #fff; font-size: 13px; font-weight: 600;
       cursor: pointer; font-family: 'Inter', sans-serif;
     }
-    .btn-continue {
+    .success-btns .btn-continue {
       flex: 1.4; padding: 10px;
       background: #22c55e; border: none; border-radius: 10px;
       color: #fff; font-size: 13px; font-weight: 600;
       cursor: pointer; font-family: 'Inter', sans-serif;
       display: flex; align-items: center; justify-content: center; gap: 4px;
     }
-    .btn-retake:hover { background: #3a3a3c; }
-    .btn-continue:hover { background: #16a34a; }
+    .success-btns .btn-retake:hover { background: #3a3a3c; }
+    .success-btns .btn-continue:hover { background: #16a34a; }
+
+    /* ── Review screen button overrides ── */
+    .btn-row .btn {
+      flex: none;
+      width: 208px;
+      height: 56px;
+    }
 
     /* ── Next arrow button ── */
     .next-btn {
