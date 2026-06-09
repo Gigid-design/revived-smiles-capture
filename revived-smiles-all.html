@@ -591,18 +591,17 @@
 
     function runAnalysis_cb(activeTab, idx) {
       const overlay   = document.getElementById('cb-ai-overlay');
-      const analyzing_cb = document.getElementById('cb-ai-analyzing_cb');
+      const analyzingCard_cb = document.getElementById('cb-ai-analyzing');
       const success   = document.getElementById('cb-ai-success');
       const spinner   = document.getElementById('cb-ai-spinner');
 
       // Reset state
       gsap.set(success, { display: 'none', opacity: 0 });
-      gsap.set(analyzing_cb, { display: 'block', opacity: 1 });
+      gsap.set(analyzingCard_cb, { display: 'block', opacity: 1 });
       gsap.set('#cb-success-circle', { scale: 0 });
       ['sharpness','lighting','alignment'].forEach(k => {
-        const s = document.getElementById('status-' + k);
-        s.textContent = 'Checking...';
-        s.className = 'check-status';
+        const s = document.getElementById('cb-status-' + k);
+        if(s){s.textContent = 'Checking...'; s.className = 'check-status';}
       });
       gsap.set(['#page-cb .check-row'], { opacity: 0, y: 6 });
 
@@ -612,7 +611,7 @@
 
       // 1 — fade in overlay + card
       tl.to(overlay, { opacity: 1, duration: 0.25, ease: 'power2.out' })
-        .from(analyzing_cb, { y: 14, opacity: 0, duration: 0.3, ease: 'back.out(1.5)' }, '<0.05');
+        .from(analyzingCard_cb, { y: 14, opacity: 0, duration: 0.3, ease: 'back.out(1.5)' }, '<0.05');
 
       // 2 — spin the star icon continuously
       gsap.to(spinner, { rotation: 360, duration: 1.2, repeat: -1, ease: 'none' });
@@ -643,10 +642,10 @@
       }, null, '+=0.55');
 
       // 5 — transition to success card
-      tl.to(analyzing_cb, { opacity: 0, y: -10, duration: 0.25, ease: 'power2.in' }, '+=0.5')
+      tl.to(analyzingCard_cb, { opacity: 0, y: -10, duration: 0.25, ease: 'power2.in' }, '+=0.5')
         .call(() => {
           gsap.killTweensOf(spinner); // stop spin
-          gsap.set(analyzing_cb, { display: 'none' });
+          gsap.set(analyzingCard_cb, { display: 'none' });
           gsap.set(success, { display: 'block' });
         })
         .to(success, { opacity: 1, duration: 0.2, ease: 'power2.out' })
@@ -769,7 +768,7 @@
   <div class="ai-overlay" id="cb-ai-overlay">
 
     <!-- Analyzing Card -->
-    <div class="ai-card" id="cb-ai-analyzing_cb">
+    <div class="ai-card" id="cb-ai-analyzing">
       <div class="ai-card-header">
         <div class="ai-spinner-wrap">
           <svg id="cb-ai-spinner" width="20" height="20" viewBox="0 0 20 20" fill="none">
@@ -983,18 +982,17 @@
 
     function runAnalysis_ob(activeTab, idx) {
       const overlay   = document.getElementById('ob-ai-overlay');
-      const analyzing_ob = document.getElementById('ob-ai-analyzing_ob');
+      const analyzingCard_ob = document.getElementById('ob-ai-analyzing');
       const success   = document.getElementById('ob-ai-success');
       const spinner   = document.getElementById('ob-ai-spinner');
 
       // Reset state
       gsap.set(success, { display: 'none', opacity: 0 });
-      gsap.set(analyzing_ob, { display: 'block', opacity: 1 });
+      gsap.set(analyzingCard_ob, { display: 'block', opacity: 1 });
       gsap.set('#ob-success-circle', { scale: 0 });
       ['sharpness','lighting','alignment'].forEach(k => {
-        const s = document.getElementById('status-' + k);
-        s.textContent = 'Checking...';
-        s.className = 'check-status';
+        const s = document.getElementById('ob-status-' + k);
+        if(s){s.textContent = 'Checking...'; s.className = 'check-status';}
       });
       gsap.set(['#page-ob .check-row'], { opacity: 0, y: 6 });
 
@@ -1004,7 +1002,7 @@
 
       // 1 — fade in overlay + card
       tl.to(overlay, { opacity: 1, duration: 0.25, ease: 'power2.out' })
-        .from(analyzing_ob, { y: 14, opacity: 0, duration: 0.3, ease: 'back.out(1.5)' }, '<0.05');
+        .from(analyzingCard_ob, { y: 14, opacity: 0, duration: 0.3, ease: 'back.out(1.5)' }, '<0.05');
 
       // 2 — spin the star icon continuously
       gsap.to(spinner, { rotation: 360, duration: 1.2, repeat: -1, ease: 'none' });
@@ -1035,10 +1033,10 @@
       }, null, '+=0.55');
 
       // 5 — transition to success card
-      tl.to(analyzing_ob, { opacity: 0, y: -10, duration: 0.25, ease: 'power2.in' }, '+=0.5')
+      tl.to(analyzingCard_ob, { opacity: 0, y: -10, duration: 0.25, ease: 'power2.in' }, '+=0.5')
         .call(() => {
           gsap.killTweensOf(spinner); // stop spin
-          gsap.set(analyzing_ob, { display: 'none' });
+          gsap.set(analyzingCard_ob, { display: 'none' });
           gsap.set(success, { display: 'block' });
         })
         .to(success, { opacity: 1, duration: 0.2, ease: 'power2.out' })
@@ -1161,7 +1159,7 @@
   <div class="ai-overlay" id="ob-ai-overlay">
 
     <!-- Analyzing Card -->
-    <div class="ai-card" id="ob-ai-analyzing_ob">
+    <div class="ai-card" id="ob-ai-analyzing">
       <div class="ai-card-header">
         <div class="ai-spinner-wrap">
           <svg id="ob-ai-spinner" width="20" height="20" viewBox="0 0 20 20" fill="none">
