@@ -872,18 +872,6 @@
 </div>
 
 <script>
-  // Entrance animation
-  
-
-    gsap.set('.page-title', { opacity: 0, y: -16 });
-    gsap.set('.photo-col', { opacity: 0, y: 24 });
-    gsap.set('.btn-row', { opacity: 0, y: 16 });
-
-    tl.to('.page-title', { opacity: 1, y: 0, duration: 0.4 })
-      .to('.photo-col', { opacity: 1, y: 0, stagger: 0.12, duration: 0.45 }, '-=0.15')
-      .to('.btn-row',   { opacity: 1, y: 0, duration: 0.35 }, '-=0.2');
-  });
-
   function goBack() {
     gsap.to('#page-review .frame', {
       opacity: 0, scale: 0.97, duration: 0.25, ease: 'power2.in',
