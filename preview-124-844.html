@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Revived Smiles – Close Bite (124-844)</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html, body {
+      background: #000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      font-family: 'Inter', sans-serif;
+    }
+
+    /* ── 932 × 430 landscape frame ── */
+    .frame {
+      width: 932px;
+      height: 430px;
+      background: #121212;
+      position: relative;
+      overflow: hidden;
+      flex-shrink: 0;
+    }
+
+    /* background scene image (covers full frame) */
+    .bg-img {
+      position: absolute;
+      inset: 0;
+      width: 100%; height: 100%;
+      object-fit: cover;
+      pointer-events: none;
+    }
+
+    /* ── Title "Close Bite" ── */
+    .title {
+      position: absolute;
+      top: 17px;
+      left: 0; right: 0;
+      text-align: center;
+      font-size: 18px;
+      font-weight: 500;
+      color: #fff;
+      white-space: nowrap;
+      z-index: 10;
+    }
+
+    /* ── Tab strip ── */
+    .tab-strip {
+      position: absolute;
+      top: 47px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      align-items: center;
+      background: #0a0a0a;
+      border-radius: 80px;
+      padding: 4px;
+      height: 40px;
+      z-index: 10;
+    }
+    .tab-item {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      padding: 0 12px 0 6px;
+      height: 32px;
+      border-radius: 50px;
+      white-space: nowrap;
+      min-width: 102px;
+    }
+    .tab-item--active { background: #2f2f2f; }
+    .tab-num {
+      width: 17px; height: 17px;
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 11px; font-weight: 500; flex-shrink: 0;
+    }
+    .tab-item--inactive .tab-num { background: #3a3a3a; color: #0a0a0a; }
+    .tab-item--active   .tab-num { background: #fff;    color: #0a0a0a; }
+    .tab-label { font-size: 12px; font-weight: 500; }
+    .tab-item--inactive .tab-label { color: #aaabaf; }
+    .tab-item--active   .tab-label { color: #fff; }
+
+    /* ── Left sidebar icon buttons ── */
+    .icon-btn {
+      position: absolute;
+      left: 22px;
+      width: 56px; height: 57px;
+      border-radius: 12px;
+      overflow: hidden;
+      z-index: 10;
+    }
+    .icon-btn img {
+      width: 100%; height: 100%;
+      display: block;
+      object-fit: cover;
+    }
+
+    /* ── Camera viewfinder oval ── */
+    .viewfinder {
+      position: absolute;
+      left: 254px; top: 95px;
+      width: 453px; height: 237px;
+      border: 3px solid #fff;
+      border-radius: 130px;
+      background: linear-gradient(
+        250.878deg,
+        rgba(222, 231, 242, 0.50) 18.976%,
+        rgba(101, 153, 220, 0.50) 84.179%
+      );
+      overflow: hidden;
+      z-index: 5;
+    }
+
+    /* Caption bar inside viewfinder */
+    .caption-bar {
+      position: absolute;
+      width: 244px; height: 24px;
+      left: calc(50% - 122px);
+      top: 207px; /* 237 - 24 - 6 */
+      background: #2f2f2f;
+      border-radius: 5px;
+      display: flex;
+      align-items: center;
+      padding-left: 20px;
+    }
+    .caption-dot {
+      position: absolute;
+      left: 9px; top: 10px;
+      width: 4px; height: 4px;
+      border-radius: 50%;
+    }
+    .caption-dot img {
+      width: 100%; height: 100%;
+      display: block;
+    }
+    .caption-text {
+      font-size: 12px;
+      font-weight: 400;
+      color: #aaabaf;
+      line-height: 18.2px;
+      white-space: nowrap;
+    }
+
+    /* ── Thumbnail photo ── */
+    .thumbnail {
+      position: absolute;
+      left: 349px; top: 330px;
+      width: 56px; height: 56px;
+      border-radius: 7px;
+      background: #fff;
+      overflow: hidden;
+      box-shadow: 0 0 0 2px rgba(248, 248, 248, 0.50);
+      z-index: 10;
+    }
+    .thumbnail img {
+      position: absolute;
+      /* Figma crops: close-up-perfect-smile placed at left=-27,top=-2, w=109, h=61 within 56×56 */
+      top: -2px; left: -27px;
+      width: 109px; height: 61px;
+      object-fit: cover;
+    }
+    /* landscape overlay behind the smile photo */
+    .thumbnail .landscape {
+      position: absolute;
+      top: 0; left: 0;
+      width: 141px; height: 94px;
+    }
+    /* The smile photo is on top */
+    .thumbnail .smile {
+      position: absolute;
+      top: -2px; left: -27px;
+      width: 109px; height: 61px;
+      object-fit: cover;
+    }
+
+    /* ── Shutter button ── */
+    .shutter {
+      position: absolute;
+      left: 447px; top: 322px;
+      width: 72px; height: 72px;
+      z-index: 10;
+    }
+    .shutter img {
+      width: 100%; height: 100%;
+      display: block;
+    }
+
+    /* ── Image placeholder box (right) ── */
+    .img-box {
+      position: absolute;
+      left: 826px; top: 181px;
+      width: 56px; height: 56px;
+      background: #2f2f2f;
+      border: 1px dashed #e8e8e4;
+      border-radius: 7px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 2px;
+      z-index: 10;
+    }
+    .img-box svg {
+      width: 17px; height: 14px;
+      flex-shrink: 0;
+    }
+    .img-box-label {
+      font-size: 8px;
+      color: #8a8a8a;
+      font-weight: 400;
+      line-height: 12px;
+      text-align: center;
+    }
+
+    /* ── Counter "0 / 3" ── */
+    .counter {
+      position: absolute;
+      left: 822px; top: 243px;
+      width: 64px;
+      text-align: center;
+      font-size: 12px;
+      font-weight: 400;
+      color: #8a8a8a;
+      letter-spacing: 2.4px;
+      line-height: 12px;
+      z-index: 10;
+    }
+  </style>
+</head>
+<body>
+<div class="frame">
+
+  <!-- Title -->
+  <div class="title">Close Bite</div>
+
+  <!-- Tab strip -->
+  <div class="tab-strip">
+    <div class="tab-item tab-item--inactive">
+      <div class="tab-num">1</div>
+      <span class="tab-label">Front</span>
+    </div>
+    <div class="tab-item tab-item--inactive">
+      <div class="tab-num">2</div>
+      <span class="tab-label">Left side</span>
+    </div>
+    <div class="tab-item tab-item--active">
+      <div class="tab-num">3</div>
+      <span class="tab-label">Right side</span>
+    </div>
+  </div>
+
+  <!-- Sidebar icon: Close/X (top) -->
+  <div class="icon-btn" style="top: 38px;">
+    <img src="https://www.figma.com/api/mcp/asset/4913c1a1-bd3f-4047-8c94-f11fc52b622e" alt="close" />
+  </div>
+
+  <!-- Sidebar icon: purple button (2nd) -->
+  <div class="icon-btn" style="top: 200px; background: #4e5269; display:flex;align-items:center;justify-content:center;">
+    <img src="https://www.figma.com/api/mcp/asset/050aa1ad-559d-4e72-bf70-e014d8e70578" alt=""
+      style="width:32px;height:27px;object-fit:contain;" />
+  </div>
+
+  <!-- Sidebar icon: 3rd -->
+  <div class="icon-btn" style="top: 265px;">
+    <img src="https://www.figma.com/api/mcp/asset/30ac0cd9-e682-4fd1-a295-ba579d710271" alt="" />
+  </div>
+
+  <!-- Sidebar icon: 4th (bottom) -->
+  <div class="icon-btn" style="top: 330px;">
+    <img src="https://www.figma.com/api/mcp/asset/f92462fb-8bfa-47a5-8333-6a07d2146814" alt="" />
+  </div>
+
+  <!-- Camera viewfinder -->
+  <div class="viewfinder">
+    <div class="caption-bar">
+      <div class="caption-dot">
+        <img src="https://www.figma.com/api/mcp/asset/e067b0b3-0bf2-4739-a6d3-ac58a7590adb" alt="" />
+      </div>
+      <span class="caption-text">Face camera directly – teeth centered</span>
+    </div>
+  </div>
+
+  <!-- Thumbnail photo -->
+  <div class="thumbnail">
+    <img class="landscape"
+      src="https://www.figma.com/api/mcp/asset/ea4840da-0eae-465f-a80f-6e1be57d0015"
+      alt="" />
+    <img class="smile"
+      src="https://www.figma.com/api/mcp/asset/e1dc63e5-2cc8-4460-abc1-e668ec19c833"
+      alt="" />
+  </div>
+
+  <!-- Shutter button -->
+  <div class="shutter">
+    <img src="https://www.figma.com/api/mcp/asset/458653af-b806-4bf3-91e6-a68ae9c590c2" alt="capture" />
+  </div>
+
+  <!-- Image placeholder box (right side) -->
+  <div class="img-box">
+    <svg viewBox="0 0 17 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <rect x="0.5" y="2.5" width="16" height="11" rx="2" stroke="#8a8a8a" stroke-width="1"/>
+      <circle cx="8.5" cy="8" r="2.5" stroke="#8a8a8a" stroke-width="1"/>
+      <path d="M5.5 2.5L6.5 0.5H10.5L11.5 2.5" stroke="#8a8a8a" stroke-width="1" stroke-linejoin="round"/>
+    </svg>
+    <span class="img-box-label">No image</span>
+  </div>
+
+  <!-- Counter -->
+  <div class="counter">0 / 3</div>
+
+</div>
+</body>
+</html>

@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Revived Smiles – Close Bite Photos (138-1829)</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html, body {
+      background: #000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      font-family: 'Inter', sans-serif;
+    }
+
+    .frame {
+      width: 932px;
+      height: 430px;
+      background: #121212;
+      border: 1px solid #000;
+      position: relative;
+      overflow: hidden;
+      flex-shrink: 0;
+    }
+
+    /* ── Title ── */
+    .page-title {
+      position: absolute;
+      top: 26px;
+      left: 0; right: 0;
+      text-align: center;
+      font-size: 28px;
+      font-weight: 500;
+      color: #fff;
+      letter-spacing: -0.3px;
+    }
+
+    /* ── Photo columns ── */
+    /* Card: 238.924 × 125px, at y=154 (CCW from portrait left=151) */
+    /* x positions: 78, 328, 578 (CCW from portrait top=78, 328, 578) */
+    .photos-row {
+      position: absolute;
+      top: 94px;
+      left: 0; right: 0;
+      display: flex;
+      justify-content: center;
+      gap: 11px;
+    }
+
+    .photo-col {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .photo-label {
+      font-size: 18px;
+      font-weight: 500;
+      color: #fff;
+      text-align: center;
+    }
+
+    .photo-card {
+      width: 238px;
+      height: 125px;
+      border-radius: 14px;
+      border: 2px solid #fff;
+      overflow: hidden;
+      position: relative;
+      background: linear-gradient(
+        250.878deg,
+        rgba(222,231,242,0.5) 18.976%,
+        rgba(101,153,220,0.5) 84.179%
+      );
+      flex-shrink: 0;
+    }
+
+    .photo-card img {
+      position: absolute;
+      width: 271px;
+      height: 151px;
+      top: -15px;
+      left: -18px;
+      object-fit: cover;
+    }
+
+    /* overlay image for cards 2 & 3 */
+    .photo-card .img-overlay {
+      position: absolute;
+      inset: 0;
+      width: 100%; height: 100%;
+      object-fit: cover;
+    }
+
+    /* ── Buttons ── */
+    /* RETAKE: CCW x=249, y=298, w=208, h=56
+       SUBMIT:  CCW x=475, y=298, w=208, h=56 */
+    .btn-row {
+      position: absolute;
+      bottom: 24px;
+      left: 0; right: 0;
+      display: flex;
+      justify-content: center;
+      gap: 24px;
+    }
+
+    .btn {
+      width: 208px;
+      height: 56px;
+      border-radius: 9999px;
+      font-size: 14px;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      cursor: pointer;
+      font-family: 'Inter', sans-serif;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: opacity 0.15s;
+    }
+    .btn:hover { opacity: 0.85; }
+
+    .btn-retake {
+      background: transparent;
+      border: 2px solid #fff;
+      color: #fff;
+    }
+
+    .btn-submit {
+      background: #fff;
+      border: none;
+      color: #0e184d;
+    }
+  </style>
+</head>
+<body>
+<div class="frame" id="review-frame">
+
+  <!-- Title -->
+  <div class="page-title">Close bite photos</div>
+
+  <!-- Photo columns -->
+  <div class="photos-row">
+    <div class="photo-col" id="col-front">
+      <div class="photo-label">Front</div>
+      <div class="photo-card">
+        <img src="https://www.figma.com/api/mcp/asset/e764f9ed-3d6c-49f5-94e3-d8baee20a0e7" alt="Front" />
+      </div>
+    </div>
+    <div class="photo-col" id="col-left">
+      <div class="photo-label">Left side</div>
+      <div class="photo-card">
+        <img src="https://www.figma.com/api/mcp/asset/e764f9ed-3d6c-49f5-94e3-d8baee20a0e7" alt="Left side" />
+        <img class="img-overlay" src="https://www.figma.com/api/mcp/asset/183f8f78-77bb-476c-9659-44e390ac5b0c" alt="" />
+      </div>
+    </div>
+    <div class="photo-col" id="col-right">
+      <div class="photo-label">Right side</div>
+      <div class="photo-card">
+        <img src="https://www.figma.com/api/mcp/asset/e764f9ed-3d6c-49f5-94e3-d8baee20a0e7" alt="Right side" />
+        <img class="img-overlay" src="https://www.figma.com/api/mcp/asset/183f8f78-77bb-476c-9659-44e390ac5b0c" alt="" />
+      </div>
+    </div>
+  </div>
+
+  <!-- Buttons -->
+  <div class="btn-row">
+    <button class="btn btn-retake" onclick="goBack()">Retake</button>
+    <button class="btn btn-submit" onclick="goNext()">Submit</button>
+  </div>
+
+</div>
+
+<script>
+  // Entrance animation
+  document.addEventListener('DOMContentLoaded', () => {
+    const tl = gsap.timeline({ defaults: { ease: 'power3.out' } });
+
+    gsap.set('.page-title', { opacity: 0, y: -16 });
+    gsap.set('.photo-col', { opacity: 0, y: 24 });
+    gsap.set('.btn-row', { opacity: 0, y: 16 });
+
+    tl.to('.page-title', { opacity: 1, y: 0, duration: 0.4 })
+      .to('.photo-col', { opacity: 1, y: 0, stagger: 0.12, duration: 0.45 }, '-=0.15')
+      .to('.btn-row',   { opacity: 1, y: 0, duration: 0.35 }, '-=0.2');
+  });
+
+  function goBack() {
+    gsap.to('#review-frame', {
+      opacity: 0, scale: 0.97, duration: 0.25, ease: 'power2.in',
+      onComplete: () => { window.location.href = 'preview-137-1692.html'; }
+    });
+  }
+
+  function goNext() {
+    gsap.to('#review-frame', {
+      opacity: 0, scale: 0.97, duration: 0.25, ease: 'power2.in',
+      onComplete: () => { window.location.href = 'preview-openbite.html'; }
+    });
+  }
+</script>
+</body>
+</html>
